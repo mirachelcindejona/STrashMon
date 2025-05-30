@@ -3,10 +3,12 @@
 #include <cstdlib>
 #include <ctime>
 #include <iomanip>
+#include <fstream>
 
 using namespace std;
 
 vector<TrashBin> sensorList = {
+   {"KTR", "Kantor Petugas", 0.0},
    {"TS1", "Depan Sekolah", 25.0},
    {"TS2", "Taman Belakang", 60.0},
    {"TS3", "Halte Utama", 85.0},
@@ -46,5 +48,18 @@ void displaySensorStatus() {
             << setw(20) << (to_string((int)bin.level) + "%")
             << setw(10) << getStatusIndikator(bin.level)
             << "\n";
+   }
+}
+
+void simpanTempatKeFile() {
+   ofstream file("data/tempat.txt");
+
+   if (file.is_open()) {
+      for (int i = 0; i < sensorList.size(); i++) {
+         file << sensorList[i].id << ";" << sensorList[i].location << "\n";
+      }
+      file.close();
+   } else {
+      cout << "Gagal menyimpan data tempat ke file.\n";
    }
 }

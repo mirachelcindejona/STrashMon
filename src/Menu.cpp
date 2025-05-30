@@ -6,6 +6,7 @@
 #include "../include/Menu.h"
 #include "../include/SensorSimulator.h"
 #include "../include/NotificationQueue.h"
+#include "../include/GraphRoute.h"
 
 using namespace std;
 
@@ -46,8 +47,42 @@ void lihatAntrianNotifikasi() {
    displayQueue();                // tampilkan isi antrian
 }
 void lihatRuteOptimal() {
-   cout << "Menghitung rute pengambilan optimal...\n";
+   clearScreen();
+   cout << "===== MENU RUTE PENGAMBILAN OPTIMAL =====\n";
+
+   inputGraph(); // tampilkan atau isi jarak
+
+   cout << "\n1. Rute otomatis dari kantor untuk pengambilan penuh\n";
+   cout << "2. Tentukan rute manual (lokasi ke lokasi)\n";
+   cout << "Pilih opsi: ";
+   int pilih;
+   cin >> pilih;
+
+   if (pilih == 1) {
+      ruteKelilingPickup();
+   } else if (pilih == 2) {
+      int awal, akhir;
+      cout << "\nDaftar Lokasi:\n";
+      for (int i = 0; i < jumlahNode; i++) {
+         if (namaTempat[i] != "") {
+            cout << i << ". " << namaTempat[i] << endl;
+         }
+      }
+      cout << "\nMasukkan nomor lokasi awal   : ";
+      cin >> awal;
+      cout << "Masukkan nomor lokasi tujuan : ";
+      cin >> akhir;
+
+      if (awal < 0 || akhir < 0 || awal >= jumlahNode || akhir >= jumlahNode || namaTempat[awal] == "" || namaTempat[akhir] == "") {
+         cout << "\nInput lokasi tidak valid.\n";
+      } else {
+         shortestPath(awal, akhir);
+      }
+   } else {
+      cout << "\nPilihan tidak valid.\n";
+   }
 }
+
 void cekHistori() {
    cout << "Cek histori tempat sampah...\n";
 }

@@ -10,6 +10,7 @@ int main() {
    // initializeTrashHistory();
    // initializeGraphRoutes();
    heading();
+   simpanTempatKeFile();
    menuUtama();
    return 0;
 }

@@ -16,6 +16,7 @@ extern vector<TrashBin> sensorList;
 void updateSensorLevels();
 void displaySensorStatus();
 void resetSensorData();
+void simpanTempatKeFile();
 string getStatusIndikator(float level);
 
 #endif
