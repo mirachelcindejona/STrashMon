@@ -3,5 +3,6 @@
 
 void heading();
 void menuUtama();
+void resetData();
 
 #endif

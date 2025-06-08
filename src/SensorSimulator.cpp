@@ -1,4 +1,5 @@
 #include "../include/SensorSimulator.h"
+#include "../include/TrashHistoryStack.h"
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
@@ -26,8 +27,8 @@ void updateSensorLevels() {
 }
 
 string getStatusIndikator(float level) {
-   if (level < 30.0) return "Hijau";
-   else if (level <= 70.0) return "Kuning";
+   if (level < 60.0) return "Hijau";
+   else if (level <= 90.0) return "Kuning";
    else return "Merah";
 }
 
@@ -61,5 +62,15 @@ void simpanTempatKeFile() {
       file.close();
    } else {
       cout << "Gagal menyimpan data tempat ke file.\n";
+   }
+}
+
+void updateSemuaHistori() {
+   for (int i = 1; i < sensorList.size(); i++) {
+      HistoriData data;
+      data.level = sensorList[i].level;
+      data.status = getStatusIndikator(data.level);
+      data.waktu = getCurrentTime();
+      pushHistori(i, data);
    }
 }

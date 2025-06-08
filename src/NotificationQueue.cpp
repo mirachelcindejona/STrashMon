@@ -1,6 +1,8 @@
 #include "../include/NotificationQueue.h"
 #include "../include/SensorSimulator.h"
 #include <iostream>
+#include <fstream>
+#include <sstream>
 using namespace std;
 
 NotifQueue notif;
@@ -24,6 +26,7 @@ void insertQueue(string data) {
       notif.isi[notif.top] = data;
       notif.top++;
    }
+   simpanQueueKeFile();
 }
 
 void deleteQueue() {
@@ -59,5 +62,30 @@ void checkTrashNotification() {
                         " status: " + status + " (" + to_string((int)sensorList[i].level) + "%)";
          insertQueue(pesan);
       }
+   }
+   simpanQueueKeFile();
+}
+
+void simpanQueueKeFile() {
+   ofstream file("data/notifikasi.txt");
+   if (file.is_open()) {
+      for (int i = 0; i < notif.top; i++) {
+         file << notif.isi[i] << "\n";
+      }
+      file.close();
+   } else {
+      cout << "Gagal menyimpan antrian notifikasi.\n";
+   }
+}
+
+void bacaQueueDariFile() {
+   ifstream file("data/notifikasi.txt");
+   if (file.is_open()) {
+      createQueue(); // reset queue terlebih dahulu
+      string line;
+      while (getline(file, line)) {
+         insertQueue(line);
+      }
+      file.close();
    }
 }

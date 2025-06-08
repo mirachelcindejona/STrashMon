@@ -17,6 +17,7 @@ void updateSensorLevels();
 void displaySensorStatus();
 void resetSensorData();
 void simpanTempatKeFile();
+void updateSemuaHistori();
 string getStatusIndikator(float level);
 
 #endif
